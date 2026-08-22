@@ -1,3 +1,7 @@
 FROM alpine:latest
 
-CMD ["echo", "Hello from Docker CI!"]
+RUN apk add --no-cache busybox-extras
+
+EXPOSE 8080
+
+CMD ["httpd", "-f", "-p", "8080", "-h", "/www"]
