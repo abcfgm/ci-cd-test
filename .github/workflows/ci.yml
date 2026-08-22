@@ -22,8 +22,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker image
+          - name: Build Docker image
         run: docker build -t ci-cd-test:latest .
 
       - name: Tag Docker image
         run: docker tag ci-cd-test:latest ghcr.io/abcfgm/ci-cd-test:latest
+
+      - name: Push Docker image
+        run: docker push ghcr.io/abcfgm/ci-cd-test:latest
