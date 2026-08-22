@@ -1,6 +1,8 @@
 FROM alpine:latest
 
-RUN apk add --no-cache busybox-extras
+RUN apk add --no-cache busybox-extras \
+    && mkdir -p /www \
+    && echo "Hello from Docker CI/CD!" > /www/index.html
 
 EXPOSE 8080
 
