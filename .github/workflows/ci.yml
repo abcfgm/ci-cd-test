@@ -37,5 +37,21 @@ jobs:
 
       - name: Deploy image
         run: |
-          docker pull ghcr.io/abcfgm/ci-cd-test:sha-${{ github.sha }}
-          docker run --rm ghcr.io/abcfgm/ci-cd-test:sha-${{ github.sha }}
+          IMAGE=ghcr.io/abcfgm/ci-cd-test:sha-${{ github.sha }}
+
+          docker pull $IMAGE
+
+          docker rm -f ci-cd-test-deploy 2>/dev/null || true
+
+          docker run -d \
+            --name ci-cd-test-deploy \
+            -p 8080:8080 \
+            $IMAGE
+
+          sleep 2
+
+          docker ps
+
+          docker logs ci-cd-test-deploy
+
+          docker rm -f ci-cd-test-deploy
