@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check Docker
-        shell: pwsh
+        shell: powershell
         run: |
           docker version
           docker context show
@@ -44,7 +44,7 @@ jobs:
           docker push ghcr.io/abcfgm/ci-cd-test:sha-${{ github.sha }}
 
       - name: Deploy image
-        shell: pwsh
+        shell: powershell
         run: |
           $image = "ghcr.io/abcfgm/ci-cd-test:sha-${{ github.sha }}"
 
@@ -62,5 +62,7 @@ jobs:
           docker ps
 
           docker logs ci-cd-test-deploy
+
+          docker rm -f ci-cd-test-deploy
 
           docker rm -f ci-cd-test-deploy
